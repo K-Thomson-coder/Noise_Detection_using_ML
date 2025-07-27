@@ -19,7 +19,7 @@ def extract_from_dir(parent_dir, label) :
             except Exception as e :
                 print(f"Error processing {filename} : {e}")
 
-        return features
+    return features
 
 def build_feature_dataframe(noise_dir, silence_dir) :
     noise_features = extract_from_dir(noise_dir, label=1)
@@ -40,22 +40,3 @@ if __name__ == "__main__" :
     df = build_feature_dataframe(noise_dir, silence_dir)
     df.to_csv("data/features.csv", index=False)
     print("Features saved to data/features.csv")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
