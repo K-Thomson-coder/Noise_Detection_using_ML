@@ -15,7 +15,7 @@ A simple machine learning project to classify noise and silence audio using Pyth
 ## 📁 Project Structure
 
 
-.
+```
 ├── data/
 │   ├── converted/                   # Converted .wav files from raw sources
 │   ├── raw/                         # Original downloaded audio files (e.g., .webm)
@@ -38,7 +38,7 @@ A simple machine learning project to classify noise and silence audio using Pyth
 ├── README.md                       # Project documentation
 ├── requirements.txt                # List of required Python packages (You are here)
 
-
+```
 
 
 
