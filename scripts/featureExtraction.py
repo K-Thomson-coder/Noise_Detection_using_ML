@@ -33,6 +33,12 @@ def build_feature_dataframe(noise_dir, silence_dir) :
 
     return df
 
+def feature_extraction(file_path) :
+    y, sr = librosa.load(file_path, sr=None)
+    mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
+    mean_mfccs = np.mean(mfccs.T, axis=0)
+    return mean_mfccs.reshape(1, -1)
+
 if __name__ == "__main__" :
     noise_dir = "data/wav/noise"
     silence_dir = "data/wav/silence"
