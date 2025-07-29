@@ -16,7 +16,7 @@ st.title("Real-Time Noise Detector")
 duration = st.slider("Recording duration (seconds)", 1, 5, 3)
 
 if st.button("Record & Predict") :
-    st.write("Recording...")
+    st.write("🎤 Recording...")
     fs = 22050 #sample rate
     recording = sd.rec(int(duration * fs), samplerate=fs, channels=1)
     sd.wait()
@@ -41,10 +41,9 @@ if st.button("Record & Predict") :
         st.write(f"## 🎧 Prediction : `{label_map[prediction]}`")
         st.markdown("### 📊 Class Probabilities ")
 
-        cols = st.columns(len(probs))
-        for i, (col, prob) in enumerate(zip(cols, probs)) :
-            with col :
-                st.metric(label = label_map[i], value = f"{prob*100 : .2f}%")
+        for i, prob in enumerate(probs) :
+            st.write(f"**{label_map[i]}**")
+            st.progress(min(max(prob, 0.0), 1.0))
 
     except Exception as e :
         st.error(f"Error processing audio : {e}")
