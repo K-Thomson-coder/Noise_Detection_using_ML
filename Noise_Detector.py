@@ -16,10 +16,10 @@ st.title("Real-Time Noise Detector")
 duration = st.slider("Recording duration (seconds)", 1, 5, 3)
 
 if st.button("Record & Predict") :
-    st.write("🎤 Recording...")
-    fs = 22050 #sample rate
-    recording = sd.rec(int(duration * fs), samplerate=fs, channels=1)
-    sd.wait()
+    with st.spinner("🎤 Recording...") :
+        fs = 22050 #sample rate
+        recording = sd.rec(int(duration * fs), samplerate=fs, channels=1)
+        sd.wait()
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as f :
         scipy.io.wavfile.write(f.name, fs, recording)
@@ -42,8 +42,15 @@ if st.button("Record & Predict") :
         st.markdown("### 📊 Class Probabilities ")
 
         for i, prob in enumerate(probs) :
+
+            percent = prob * 100
+
             st.write(f"**{label_map[i]}**")
-            st.progress(min(max(prob, 0.0), 1.0))
+            bar_col, val_col = st.columns([5, 1])
+            with bar_col :
+                st.progress(min(int(percent), 100))
+            with val_col :
+                st.write(f"**{percent:.2f}%**")
 
     except Exception as e :
         st.error(f"Error processing audio : {e}")
