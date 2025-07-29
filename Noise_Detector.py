@@ -33,11 +33,18 @@ if st.button("Record & Predict") :
         mfccs_mean = np.mean(mfccs.T, axis=0).reshape(1, -1)
 
         scaled_mfccs = scaler.transform(mfccs_mean)
-        
-        prediction = model.predict(scaled_mfccs)
-        result = label_map[int(prediction[0])]
 
-        st.success(f"Prediction : *{result}*")
+        probs = model.predict_proba(scaled_mfccs)[0]
+        prediction = np.argmax(probs)
+
+
+        st.write(f"## 🎧 Prediction : `{label_map[prediction]}`")
+        st.markdown("### 📊 Class Probabilities ")
+
+        cols = st.columns(len(probs))
+        for i, (col, prob) in enumerate(zip(cols, probs)) :
+            with col :
+                st.metric(label = label_map[i], value = f"{prob*100 : .2f}%")
 
     except Exception as e :
         st.error(f"Error processing audio : {e}")
