@@ -1,8 +1,8 @@
 import os 
 import ffmpeg
 
-input_folder = "data/raw_webm"
-output_folder = "data/converted_wav"
+input_folder = "data/raw"
+output_folder = "data/converted"
 
 os.makedirs(output_folder, exist_ok=True)
 
